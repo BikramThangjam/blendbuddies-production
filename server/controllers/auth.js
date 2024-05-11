@@ -21,8 +21,12 @@ export const register = async (req, res) => {
         } = req.body
         
         const pictureObj = req.file;
-        
-        const picture = await uploadOnCloudinary(pictureObj.path);
+
+        let picture;
+
+        if(pictureObj){
+            picture = await uploadOnCloudinary(pictureObj.path);
+        }
     
 
         const salt = await bcrypt.genSalt();
@@ -33,7 +37,7 @@ export const register = async (req, res) => {
             lastName,
             email,
             password : passwordHash,
-            picturePath: picture.url,
+            picturePath: picture?.url || "",
             friends,
             location,
             occupation,
