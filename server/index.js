@@ -40,6 +40,7 @@ app.use(
     helmet.contentSecurityPolicy({
       directives: {
         defaultSrc: ["'self'"],
+        connectSrc: ["'self'", "*"],
         imgSrc: ["'self'", "data:","blob:", "*"],
       },
     })
