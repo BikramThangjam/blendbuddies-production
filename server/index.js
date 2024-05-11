@@ -17,6 +17,7 @@ import messageRoutes from "./routes/message.js";
 import { verifyToken } from "./middleware/auth.js";
 import { updateProfile } from "./controllers/users.js";
 import { app, server } from "./socket/socket.js";
+import job from "./cron/cron.js";
 
 // CONFIGURATIONS
 const __dirname = path.resolve();
@@ -90,6 +91,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
+    job.start();
     server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
   })
   .catch((error) => console.log(`Could not connect to db. Error- ${error}`));
